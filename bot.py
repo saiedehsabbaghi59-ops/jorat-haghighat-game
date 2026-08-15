@@ -6,7 +6,6 @@ app = Flask(__name__)
 
 TOKEN = os.environ.get("BALE_TOKEN")
 API = f"https://tapi.bale.ai/bot{TOKEN}"
-
 @app.route("/", methods=["GET"])
 def home():
     return "Bot is running"
@@ -18,29 +17,29 @@ def webhook():
     message = data.get("message", {})
     chat = message.get("chat", {})
     text = message.get("text", "")
-
-    if text == "/start":
+             if text == "/start":
         chat_id = chat.get("id")
 
         if chat_id:
-requests.post(
-    f"{API}/sendMessage",
-    json={
-        "chat_id": chat_id,
-        "text": "🎮 به بازی جرئت یا حقیقت خوش آمدی!\n\nبرای شروع بازی روی دکمه زیر بزن.",
-        "reply_markup": {
-            "inline_keyboard": [[
-                {
-                    "text": "🎮 شروع بازی",
-                    "web_app": {
-                        "url": "https://saiedehsabbaghi59-ops.github.io/jorat-haghighat-game/"
+            requests.post(
+                f"{API}/sendMessage",
+                json={
+                    "chat_id": chat_id,
+                    "text": "🎮 به بازی جرئت یا حقیقت خوش آمدی!\n\nبرای شروع بازی روی دکمه زیر بزن.",
+                    "reply_markup": {
+                        "inline_keyboard": [[
+                            {
+                                "text": "🎮 شروع بازی",
+                                "web_app": {
+                                    "url": "https://saiedehsabbaghi59-ops.github.io/jorat-haghighat-game/"
+                                }
+                            }
+                        ]]
                     }
-                }
-            ]]
-        }
-    },
-    timeout=10
-)            
+                },
+                timeout=10
+            )
+    return "OK"
 
     return "OK"
     
