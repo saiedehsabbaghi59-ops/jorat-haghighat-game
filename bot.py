@@ -41,46 +41,119 @@ def is_member(chat_id):
         return False
 
 
+def send_message(chat_id, text, keyboard=None):
+    data = {
+        "chat_id": chat_id,
+        "text": text
+    }
+
+    if keyboard:
+        data["reply_markup"] = {
+            "inline_keyboard": keyboard
+        }
+
+    requests.post(
+        f"{API}/sendMessage",
+        json=data,
+        timeout=10
+    )
+
+
 @app.route("/webhook", methods=["POST"])
 def webhook():
     data = request.get_json(silent=True) or {}
 
     message = data.get("message", {})
+    callback = data.get("callback_query", {})
+
     chat = message.get("chat", {})
     text = message.get("text", "")
     chat_id = chat.get("id")
 
+    # /start
     if text == "/start" and chat_id:
 
         if not is_member(chat_id):
-            requests.post(
-                f"{API}/sendMessage",
-                json={
-                    "chat_id": chat_id,
-                    "text": "🔒 برای استفاده از بازی، ابتدا باید عضو کانال ما شوی:\n\n@chocolate_land_channle\n\nبعد از عضویت دوباره /start را بزن.",
-                },
-                timeout=10
+            send_message(
+                chat_id,
+                "🔒 برای استفاده از بازی، ابتدا عضو کانال ما شو 👇",
+                [
+                    [
+                        {
+                            "text": "📢 عضویت در کانال",
+                            "url": "https://ble.ir/chocolate_land_channle"
+                        }
+                    ],
+                    [
+                        {
+                            "text": "✅ بررسی عضویت",
+                            "callback_data": "check_member"
+                        }
+                    ]
+                ]
             )
-            return "OK"
-
-        requests.post(
-            f"{API}/sendMessage",
-            json={
-                "chat_id": chat_id,
-                "text": "🎮 به بازی جرئت یا حقیقت خوش آمدی!\n\nبرای شروع بازی روی دکمه زیر بزن.",
-                "reply_markup": {
-                    "inline_keyboard": [[
+        else:
+            send_message(
+                chat_id,
+                "🎮 به بازی جرئت یا حقیقت خوش آمدی!\n\nبرای شروع بازی روی دکمه زیر بزن.",
+                [
+                    [
                         {
                             "text": "🎮 شروع بازی",
                             "web_app": {
                                 "url": GAME_URL
                             }
                         }
-                    ]]
-                }
-            },
-            timeout=10
-        )
+                    ]
+                ]
+            )
+
+    # بررسی عضویت
+    if callback:
+        callback_id = callback.get("id")
+        callback_data = callback.get("data")
+        callback_message = callback.get("message", {})
+        callback_chat = callback_message.get("chat", {})
+        callback_chat_id = callback_chat.get("id")
+
+        if callback_data == "check_member" and callback_chat_id:
+
+            if is_member(callback_chat_id):
+
+                requests.post(
+                    f"{API}/answerCallbackQuery",
+                    json={
+                        "callback_query_id": callback_id,
+                        "text": "✅ عضویت شما تأیید شد!"
+                    },
+                    timeout=10
+                )
+
+                send_message(
+                    callback_chat_id,
+                    "🎉 عضویتت تأیید شد!\n\nحالا می‌تونی بازی رو شروع کنی.",
+                    [
+                        [
+                            {
+                                "text": "🎮 شروع بازی",
+                                "web_app": {
+                                    "url": GAME_URL
+                                }
+                            }
+                        ]
+                    ]
+                )
+
+            else:
+
+                requests.post(
+                    f"{API}/answerCallbackQuery",
+                    json={
+                        "callback_query_id": callback_id,
+                        "text": "❌ هنوز عضو کانال نیستی."
+                    },
+                    timeout=10
+                )
 
     return "OK"
 
