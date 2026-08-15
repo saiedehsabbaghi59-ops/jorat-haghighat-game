@@ -6,9 +6,12 @@ app = Flask(__name__)
 
 TOKEN = os.environ.get("BALE_TOKEN")
 API = f"https://tapi.bale.ai/bot{TOKEN}"
+
+
 @app.route("/", methods=["GET"])
 def home():
     return "Bot is running"
+
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
@@ -17,7 +20,8 @@ def webhook():
     message = data.get("message", {})
     chat = message.get("chat", {})
     text = message.get("text", "")
-             if text == "/start":
+
+    if text == "/start":
         chat_id = chat.get("id")
 
         if chat_id:
@@ -39,10 +43,10 @@ def webhook():
                 },
                 timeout=10
             )
-    return "OK"
 
     return "OK"
-    
+
+
 WEBHOOK_URL = "https://jorat-haghighat-game.onrender.com/webhook"
 
 requests.post(
@@ -50,6 +54,8 @@ requests.post(
     json={"url": WEBHOOK_URL},
     timeout=10
 )
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
