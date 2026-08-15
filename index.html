@@ -5,106 +5,755 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#7c3aed">
 <title>جرئت یا حقیقت</title>
+
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;min-height:100vh;font-family:Tahoma,Arial,sans-serif;color:#fff;background:radial-gradient(circle at 20% 10%,#4c1d95 0,#17102e 45%,#090711 100%)}
-.app{max-width:520px;margin:auto;min-height:100vh;padding:18px;display:flex;flex-direction:column}
-.top{display:flex;justify-content:space-between;align-items:center}.logo{font-weight:900;font-size:22px}.badge{padding:8px 12px;border-radius:99px;background:#ffffff14;border:1px solid #ffffff1c;font-size:12px}
-.card{margin-top:18px;padding:20px;border-radius:26px;background:#ffffff0e;border:1px solid #ffffff18;box-shadow:0 20px 60px #0006;backdrop-filter:blur(10px)}
-h1{font-size:31px;margin:4px 0 10px}.desc{color:#d9d0eb;line-height:1.9;font-size:14px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
-button{font:inherit;border:0;color:#fff;cursor:pointer}.choice{min-height:115px;border-radius:22px;font-size:22px;font-weight:900;box-shadow:0 12px 30px #0003}.truth{background:linear-gradient(145deg,#ec4899,#be185d)}.dare{background:linear-gradient(145deg,#8b5cf6,#4f46e5)}
-.secondary{width:100%;margin-top:12px;padding:13px;border-radius:15px;background:#ffffff12;border:1px solid #ffffff18}
-.screen{display:none}.screen.active{display:block}.question{min-height:220px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:18px}
-.type{font-size:14px;opacity:.8;margin-bottom:15px}.qtext{font-size:24px;font-weight:800;line-height:1.8}
-.next{margin-top:20px;width:100%;padding:15px;border-radius:16px;background:linear-gradient(135deg,#7c3aed,#a855f7);font-weight:900;font-size:17px}
-.stats{display:flex;gap:8px;margin-top:14px}.stat{flex:1;text-align:center;padding:10px;border-radius:14px;background:#0002}.num{font-size:20px;font-weight:900}.label{font-size:10px;color:#bfb5d6}
-.settings{margin-top:14px}.settings label{display:block;color:#cfc6e3;font-size:13px;margin:12px 0 6px}.settings select{width:100%;padding:12px;border-radius:13px;background:#20163b;color:#fff;border:1px solid #ffffff20}
-.footer{margin-top:auto;text-align:center;color:#8f86a8;font-size:11px;padding:14px}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Tahoma,Arial,sans-serif;
+  color:#fff;
+  background:radial-gradient(circle at 20% 10%,#4c1d95 0,#17102e 45%,#090711 100%)
+}
+
+.app{
+  max-width:520px;
+  margin:auto;
+  min-height:100vh;
+  padding:18px;
+  display:flex;
+  flex-direction:column
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+
+.logo{
+  font-weight:900;
+  font-size:22px
+}
+
+.badge{
+  padding:8px 12px;
+  border-radius:99px;
+  background:#ffffff14;
+  border:1px solid #ffffff1c;
+  font-size:12px
+}
+
+.card{
+  margin-top:18px;
+  padding:20px;
+  border-radius:26px;
+  background:#ffffff0e;
+  border:1px solid #ffffff18;
+  box-shadow:0 20px 60px #0006;
+  backdrop-filter:blur(10px)
+}
+
+h1{
+  font-size:31px;
+  margin:4px 0 10px
+}
+
+.desc{
+  color:#d9d0eb;
+  line-height:1.9;
+  font-size:14px
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:18px
+}
+
+.choice{
+  min-height:90px;
+  border-radius:22px;
+  font-size:19px;
+  font-weight:900;
+  box-shadow:0 12px 30px #0003
+}
+
+button{
+  font:inherit;
+  border:0;
+  color:#fff;
+  cursor:pointer
+}
+
+.category1{background:linear-gradient(145deg,#ec4899,#be185d)}
+.category2{background:linear-gradient(145deg,#8b5cf6,#4f46e5)}
+.category3{background:linear-gradient(145deg,#06b6d4,#0e7490)}
+.category4{background:linear-gradient(145deg,#22c55e,#15803d)}
+.category5{background:linear-gradient(145deg,#f59e0b,#d97706)}
+
+.truth{
+  background:linear-gradient(145deg,#ec4899,#be185d)
+}
+
+.dare{
+  background:linear-gradient(145deg,#8b5cf6,#4f46e5)
+}
+
+.secondary{
+  width:100%;
+  margin-top:12px;
+  padding:13px;
+  border-radius:15px;
+  background:#ffffff12;
+  border:1px solid #ffffff18
+}
+
+.screen{display:none}
+.screen.active{display:block}
+
+.question{
+  min-height:300px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:18px
+}
+
+.type{
+  font-size:14px;
+  opacity:.8;
+  margin-bottom:15px
+}
+
+.category-name{
+  font-size:13px;
+  color:#cfc6e3;
+  margin-bottom:12px
+}
+
+.qtext{
+  font-size:24px;
+  font-weight:800;
+  line-height:1.8
+}
+
+.next{
+  margin-top:20px;
+  width:100%;
+  padding:15px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#7c3aed,#a855f7);
+  font-weight:900;
+  font-size:17px
+}
+
+.stats{
+  display:flex;
+  gap:8px;
+  margin-top:14px
+}
+
+.stat{
+  flex:1;
+  text-align:center;
+  padding:10px;
+  border-radius:14px;
+  background:#0002
+}
+
+.num{
+  font-size:20px;
+  font-weight:900
+}
+
+.label{
+  font-size:10px;
+  color:#bfb5d6
+}
+
+.footer{
+  margin-top:auto;
+  text-align:center;
+  color:#8f86a8;
+  font-size:11px;
+  padding:14px
+}
 </style>
 </head>
-<body>
-<div class="app">
-<div class="top"><div class="logo">🎲 جرئت یا حقیقت</div><div class="badge">گُرَت حقیقت</div></div>
 
+<body>
+
+<div class="app">
+
+<div class="top">
+  <div class="logo">🎲 جرئت یا حقیقت</div>
+  <div class="badge">گُرَت حقیقت</div>
+</div>
+
+<!-- صفحه دسته‌ها -->
 <section id="home" class="screen active">
+
 <div class="card">
+
 <h1>حاضری؟ 😈</h1>
-<div class="desc">یک گزینه انتخاب کن و ببین چه چالشی نصیبت می‌شود! بازی برای دورهمی دوستان طراحی شده و می‌توانی درجه سختی را تغییر بدهی.</div>
-<div class="row">
-<button class="choice truth" onclick="draw('truth')">💗<br>حقیقت</button>
-<button class="choice dare" onclick="draw('dare')">🔥<br>جرئت</button>
+
+<div class="desc">
+اول یک دسته انتخاب کن، بعد حقیقت یا جرئت را انتخاب کن!
 </div>
-<div class="settings">
-<label>سطح بازی</label>
-<select id="level">
-<option value="easy">آسان 😊</option>
-<option value="normal" selected>معمولی 😈</option>
-<option value="hard">سخت 🔥</option>
-</select>
+
+<div class="grid">
+
+<button class="choice category1" onclick="selectCategory('funny')">
+😂<br>خنده‌دار
+</button>
+
+<button class="choice category2" onclick="selectCategory('challenge')">
+😈<br>چالشی
+</button>
+
+<button class="choice category3" onclick="selectCategory('personal')">
+🤔<br>شخصی
+</button>
+
+<button class="choice category4" onclick="selectCategory('friends')">
+👯<br>دوستانه
+</button>
+
+<button class="choice category5" onclick="selectCategory('friendly')">
+💕<br>صمیمی
+</button>
+
 </div>
+
 <button class="secondary" onclick="showRules()">📖 قوانین بازی</button>
+
 </div>
 </section>
+
+
+<!-- انتخاب حقیقت یا جرئت -->
+
+<section id="typeSelect" class="screen">
+
+<div class="card">
+
+<h1 id="selectedCategoryTitle">انتخاب کن 🎲</h1>
+
+<div class="desc">
+حقیقت می‌خوای یا جرئت؟
+</div>
+
+<div class="grid">
+
+<button class="choice truth" onclick="draw('truth')">
+💗<br>حقیقت
+</button>
+
+<button class="choice dare" onclick="draw('dare')">
+🔥<br>جرئت
+</button>
+
+</div>
+
+<button class="secondary" onclick="goHome()">
+🏠 انتخاب دسته دیگر
+</button>
+
+</div>
+
+</section>
+
+
+<!-- صفحه بازی -->
 
 <section id="play" class="screen">
+
 <div class="card question">
+
+<div class="category-name" id="categoryName"></div>
+
 <div class="type" id="type"></div>
+
 <div class="qtext" id="qtext"></div>
-<button class="next" onclick="nextRound()">بعدی 🎲</button>
+
+<button class="next" onclick="nextRound()">
+بعدی 🎲
+</button>
+
 </div>
+
 <div class="stats">
-<div class="stat"><div class="num" id="truthCount">0</div><div class="label">حقیقت</div></div>
-<div class="stat"><div class="num" id="dareCount">0</div><div class="label">جرئت</div></div>
-<div class="stat"><div class="num" id="rounds">0</div><div class="label">دور</div></div>
+
+<div class="stat">
+<div class="num" id="truthCount">0</div>
+<div class="label">حقیقت</div>
 </div>
-<button class="secondary" onclick="goHome()">🏠 منوی اصلی</button>
+
+<div class="stat">
+<div class="num" id="dareCount">0</div>
+<div class="label">جرئت</div>
+</div>
+
+<div class="stat">
+<div class="num" id="rounds">0</div>
+<div class="label">دور</div>
+</div>
+
+</div>
+
+<button class="secondary" onclick="goHome()">
+🏠 منوی اصلی
+</button>
+
 </section>
+
+
+<!-- قوانین -->
 
 <section id="rules" class="screen">
+
 <div class="card">
+
 <h1>📖 قوانین</h1>
+
 <div class="desc">
-۱. بازیکن «حقیقت» یا «جرئت» را انتخاب می‌کند.<br>
-۲. کارت به‌صورت تصادفی نمایش داده می‌شود.<br>
-۳. اگر چالش مناسب جمع شما نیست، می‌توانید «بعدی» را بزنید.<br>
-۴. هیچ‌کس مجبور به انجام کاری که ناراحت‌کننده یا خطرناک است نیست.
+
+۱. یک دسته انتخاب کن.<br>
+۲. حقیقت یا جرئت را انتخاب کن.<br>
+۳. کارت به‌صورت تصادفی نمایش داده می‌شود.<br>
+۴. اگر چالش مناسب جمع شما نیست، «بعدی» را بزنید.<br>
+۵. هیچ‌کس مجبور به انجام کاری که ناراحت‌کننده یا خطرناک است نیست.<br>
+۶. هدف بازی فقط سرگرمی و خندیدن با دوستان است. 😄
+
 </div>
-<button class="next" onclick="goHome()">متوجه شدم 👍</button>
+
+<button class="next" onclick="goHome()">
+متوجه شدم 👍
+</button>
+
 </div>
+
 </section>
 
-<div class="footer">برای جمع دوستانه • بدون ثبت اطلاعات شخصی</div>
+<div class="footer">
+برای جمع دوستانه • بدون ثبت اطلاعات شخصی
 </div>
+
+</div>
+
+
 <script>
-document.querySelector('.truth').addEventListener('click', function () {
-  draw('truth');
-});
 
-document.querySelector('.dare').addEventListener('click', function () {
-  draw('dare');
-});
+let currentCategory = '';
+let currentType = '';
 
-document.querySelector('.secondary').addEventListener('click', function () {
-  showRules();
-});
+let truthCount = 0;
+let dareCount = 0;
+let rounds = 0;
 
-document.querySelector('.next').addEventListener('click', function () {
-  nextRound();
-});function screen(id) {
-  document.querySelectorAll('.screen').forEach(function(x) {
+
+const categoryNames = {
+  funny: "😂 خنده‌دار",
+  challenge: "😈 چالشی",
+  personal: "🤔 شخصی",
+  friends: "👯 دوستانه",
+  friendly: "💕 صمیمی"
+};
+
+
+const data = {
+
+funny: {
+
+truth: [
+"آخرین چیزی که باعث شد از ته دل بخندی چه بود؟",
+"خنده‌دارترین سوتی‌ای که دادی چه بود؟",
+"عجیب‌ترین غذایی که امتحان کردی چه بود؟",
+"اگر صدایت عوض شود دوست داری چه صدایی داشته باشی؟",
+"خنده‌دارترین اسم مستعاری که شنیدی چیست؟",
+"کدام شکلک را بیشتر از همه استفاده می‌کنی؟",
+"اگر یک روز حیوان بودی، دوست داشتی چه حیوانی باشی؟",
+"بامزه‌ترین خاطره دوران مدرسه‌ات چیست؟",
+"تا حالا جلوی دیگران زمین خورده‌ای؟",
+"کدام جمله را خیلی زیاد تکرار می‌کنی؟",
+"اگر قرار بود یک شخصیت کارتونی باشی، کدام را انتخاب می‌کردی؟",
+"عجیب‌ترین خوابی که یادت می‌آید چه بوده؟",
+"اگر می‌توانستی با یک حیوان حرف بزنی، کدام را انتخاب می‌کردی؟",
+"بدترین آواز خواندنت چه زمانی بوده؟",
+"اگر اسم جدیدی برای خودت انتخاب کنی چه اسمی است؟",
+"کدام حرکت دوستانت بیشتر تو را می‌خنداند؟",
+"تا حالا چیزی را اشتباهی جای دیگری گذاشته‌ای و کلی دنبالش گشته‌ای؟",
+"اگر قرار بود یک روز با لباس عجیب بیرون بروی، چه می‌پوشیدی؟",
+"خنده‌دارترین پیام اشتباهی که فرستادی چه بود؟",
+"اگر یک قدرت خیلی مسخره داشتی، چه قدرتی بود؟",
+"کدام صدای حیوان را بهتر می‌توانی تقلید کنی؟",
+"اگر زندگی‌ات فیلم کمدی بود اسمش چه بود؟",
+"تا حالا وسط خنده نتوانسته‌ای جلوی خنده‌ات را بگیری؟",
+"اگر مجبور بودی یک غذای عجیب را تبلیغ کنی چه می‌گفتی؟",
+"کدام کلمه برایت خنده‌دار است؟",
+"اگر یک روز فقط با اشاره حرف بزنی چه اتفاقی می‌افتد؟",
+"بامزه‌ترین اتفاقی که در جمع دوستانت افتاده چیست؟",
+"اگر یک ربات داشتی، اولین کار خنده‌داری که از او می‌خواستی چه بود؟",
+"اگر یک میم درباره خودت ساخته شود، موضوعش چیست؟",
+"اگر قرار بود صدای زنگ گوشی‌ات یک جمله خنده‌دار باشد، چه می‌گفت؟"
+],
+
+dare: [
+"۱۰ ثانیه با صدای ربات حرف بزن.",
+"یک حرکت رقص بامزه انجام بده.",
+"با صدای خیلی جدی یک جمله خنده‌دار بگو.",
+"صدای یک حیوان را تقلید کن.",
+"۲۰ ثانیه مثل گوینده اخبار حرف بزن.",
+"اسم خودت را با یک لحن خیلی عجیب معرفی کن.",
+"یک تبلیغ خنده‌دار برای یک لیوان اجرا کن.",
+"۱۰ ثانیه بدون خندیدن به یکی از بازیکنان نگاه کن.",
+"یک جمله را با صدای کودکانه بگو.",
+"حرکت آهسته یک ورزشکار را اجرا کن.",
+"یک داستان سه جمله‌ای خنده‌دار بساز.",
+"مثل مجری تلویزیون یک بازیکن را معرفی کن.",
+"یک وسیله معمولی را مثل یک اختراع فوق‌العاده تبلیغ کن.",
+"صدای زنگ تلفن را تقلید کن.",
+"۲۰ ثانیه مثل یک ربات راه برو.",
+"یک جمله را پنج بار با لحن‌های مختلف بگو.",
+"با دست‌هایت یک حیوان خیالی بساز و معرفی‌اش کن.",
+"۱۰ ثانیه ادای یک مجری مسابقه را دربیاور.",
+"یک اسم عجیب برای خودت انتخاب کن و تا یک دور با آن معرفی شو.",
+"یک حرکت ورزشی خیالی اختراع کن.",
+"مثل یک گوینده رادیو هوا را گزارش کن.",
+"یک شعر کوتاه بداهه درباره یک کفش بساز.",
+"۲۰ ثانیه فقط با اشاره منظورت را بگو.",
+"یک جمله خیلی معمولی را مثل یک خبر مهم اعلام کن.",
+"ادای یک ربات خراب را دربیاور.",
+"یک داستان خیلی کوتاه با سه کلمه تصادفی بساز.",
+"۱۰ ثانیه مثل یک شخصیت کارتونی صحبت کن.",
+"یک حرکت خنده‌دار با دست‌ها انجام بده.",
+"اسم سه وسیله را با لحن آوازگونه بگو.",
+"به مدت ۱۵ ثانیه نقش یک فروشنده خیلی هیجان‌زده را بازی کن."
+]
+
+},
+
+challenge: {
+
+truth: [
+"کدام کار را همیشه به فردا موکول می‌کنی؟",
+"کدام مهارت را دوست داری بهتر یاد بگیری؟",
+"آخرین باری که از انجام کاری ترسیدی چه زمانی بود؟",
+"کدام عادتت را دوست داری تغییر بدهی؟",
+"وقتی اشتباه می‌کنی معمولاً چه واکنشی داری؟",
+"بیشتر در چه کاری صبور نیستی؟",
+"کدام کار سخت را با موفقیت انجام داده‌ای؟",
+"چه چیزی سریع حوصله‌ات را سر می‌برد؟",
+"اگر یک ماه فرصت یادگیری داشته باشی چه چیزی یاد می‌گیری؟",
+"کدام ویژگی خودت را بیشتر دوست داری؟",
+"کدام ویژگی را دوست داری در خودت قوی‌تر کنی؟",
+"آخرین باری که از خودت راضی بودی چه زمانی بود؟",
+"چه کاری را سخت شروع می‌کنی ولی وقتی شروع کنی ادامه می‌دهی؟",
+"اگر بتوانی یک ترس کوچک را کنار بگذاری، کدام است؟",
+"کدام کار برایت سخت ولی ارزشمند است؟",
+"وقتی تحت فشار هستی چه چیزی کمکت می‌کند؟",
+"کدام هدف را دوست داری امسال به آن برسی؟",
+"چه چیزی باعث می‌شود دوباره تلاش کنی؟",
+"کدام عادت خوب را دوست داری بیشتر انجام بدهی؟",
+"تا حالا کاری را که فکر می‌کردی نمی‌توانی انجام بدهی، انجام داده‌ای؟",
+"اگر قرار باشد یک هفته یک مهارت تمرین کنی، چه مهارتی است؟",
+"چه کاری تو را از منطقه امن خودت بیرون می‌آورد؟",
+"بیشتر دوست داری رهبر باشی یا عضو تیم؟",
+"در چه کاری دوست داری اعتمادبه‌نفست بیشتر شود؟",
+"چه چیزی برای رسیدن به هدف‌هایت بیشتر کمکت می‌کند؟",
+"کدام چالش را دوست داری یک بار امتحان کنی؟",
+"اگر امروز یک کار سخت را تمام کنی، چه کاری خواهد بود؟",
+"در چه کاری دوست داری سریع‌تر تصمیم بگیری؟",
+"کدام تجربه باعث شد چیز جدیدی یاد بگیری؟",
+"اگر قرار باشد خودت را با یک جمله تشویق کنی، چه می‌گویی؟"
+],
+
+dare: [
+"۳۰ ثانیه بدون خندیدن به یک بازیکن نگاه کن.",
+"یک داستان ۲۰ ثانیه‌ای بداهه بساز.",
+"یک جمله سخت را سه بار سریع بگو.",
+"۱۰ حرکت اسکات انجام بده.",
+"یک وسیله را با سه ویژگی متفاوت معرفی کن.",
+"۲۰ ثانیه فقط با دست اشاره کن.",
+"یک اسم برای تیم بازی انتخاب کن.",
+"در ۱۵ ثانیه سه کلمه هم‌قافیه بگو.",
+"یک حرکت ورزشی ساده انجام بده.",
+"یک داستان با جمله «یک روز عجیب...» شروع کن.",
+"۳۰ ثانیه نقش یک مربی را بازی کن.",
+"یک قانون جدید و خنده‌دار برای بازی پیشنهاد بده.",
+"یک جمله را از آخر به اول کلمه‌به‌کلمه بگو.",
+"در ۲۰ ثانیه پنج میوه نام ببر.",
+"یک حرکت جدید برای جشن گرفتن برد اختراع کن.",
+"یک وسیله معمولی را به عنوان اختراع قرن معرفی کن.",
+"۲۰ ثانیه مثل یک سخنران انگیزشی صحبت کن.",
+"یک داستان کوتاه با سه کلمه «باران، کفش، مدرسه» بساز.",
+"سه حرکت کششی ساده انجام بده.",
+"۱۰ ثانیه بدون استفاده از کلمات منظورت را برسان.",
+"یک مسابقه کوچک با یکی از بازیکنان پیشنهاد بده.",
+"یک جمله را با سه احساس مختلف بگو.",
+"۱۵ ثانیه نقش یک گزارشگر ورزشی را بازی کن.",
+"یک اسم عجیب برای یک غذای خیالی بساز.",
+"در ۲۰ ثانیه پنج کشور نام ببر.",
+"یک شعار برای این بازی بساز.",
+"یک حرکت دست مخصوص خودت اختراع کن.",
+"۳۰ ثانیه فقط سؤال بپرس.",
+"یک داستان خیلی کوتاه با پایان غیرمنتظره تعریف کن.",
+"۱۰ ثانیه با لحن خیلی رسمی صحبت کن."
+]
+
+},
+
+personal: {
+
+truth: [
+"بیشتر از همه به چه چیزی افتخار می‌کنی؟",
+"چه چیزی سریع خوشحالت می‌کند؟",
+"چه چیزی معمولاً ناراحتت می‌کند؟",
+"کدام خاطره را خیلی دوست داری؟",
+"دوست داری دیگران چه ویژگی‌ای را بیشتر در تو ببینند؟",
+"چه چیزی به تو آرامش می‌دهد؟",
+"کدام سرگرمی را بیشتر دوست داری؟",
+"اگر یک روز کامل آزاد باشی چه کار می‌کنی؟",
+"چه چیزی بیشتر از همه انگیزه‌ات می‌دهد؟",
+"دوست داری در آینده چه چیزی یاد بگیری؟",
+"کدام فصل سال را بیشتر دوست داری و چرا؟",
+"کدام مکان را بیشتر دوست داری؟",
+"چه چیزی باعث می‌شود احساس موفقیت کنی؟",
+"دوست داری چه عادتی را بهتر کنی؟",
+"کدام خاطره دوران کودکی برایت شیرین است؟",
+"اگر بتوانی یک روز را دوباره تجربه کنی کدام روز است؟",
+"چه چیزی بیشتر از همه به تو انرژی می‌دهد؟",
+"کدام کار روزانه را دوست داری؟",
+"دوست داری دیگران چه چیزی را درباره تو بدانند؟",
+"کدام ویژگی اخلاقی برایت مهم‌تر است؟",
+"اگر بتوانی یک استعداد جدید داشته باشی چه خواهد بود؟",
+"کدام نوع موسیقی را بیشتر دوست داری؟",
+"در اوقات فراغت بیشتر چه کار می‌کنی؟",
+"چه چیزی برایت ارزشمندتر از پول است؟",
+"کدام موفقیت کوچک خودت را دوست داری؟",
+"چه چیزی باعث می‌شود به آینده امیدوار باشی؟",
+"اگر یک سفر رایگان داشته باشی کجا می‌روی؟",
+"چه چیزی را دوست داری بیشتر تجربه کنی؟",
+"کدام کار را وقتی انجام می‌دهی زمان را فراموش می‌کنی؟",
+"اگر بخواهی یک ویژگی خوب را در خودت بیشتر کنی، چیست؟"
+],
+
+dare: [
+"یک جمله مثبت درباره خودت بگو.",
+"سه چیزی که بابتشان خوشحالی نام ببر.",
+"یک هدف کوچک برای این هفته بگو.",
+"۲۰ ثانیه درباره یکی از علاقه‌مندی‌هایت صحبت کن.",
+"یک جمله انگیزشی برای خودت بگو.",
+"یک خاطره خوب را در سه جمله تعریف کن.",
+"سه مهارتی که دوست داری یاد بگیری بگو.",
+"یک ویژگی خوب درباره خودت بگو.",
+"۱۵ ثانیه درباره رؤیای آینده‌ات حرف بزن.",
+"یک جمله تشکر از خودت بگو.",
+"سه چیز مورد علاقه‌ات را سریع نام ببر.",
+"یک هدف خنده‌دار برای امروز بساز.",
+"یک جمله درباره بهترین روزت بگو.",
+"یک کار خوب که امروز می‌توانی انجام بدهی پیشنهاد کن.",
+"یک ویژگی مثبت در یکی از بازیکنان بگو.",
+"۲۰ ثانیه درباره یک خاطره خوب صحبت کن.",
+"یک جمله امیدوارکننده بگو.",
+"سه چیز کوچک که خوشحالت می‌کنند نام ببر.",
+"یک برنامه سرگرم‌کننده برای فردا پیشنهاد بده.",
+"یک جمله درباره چیزی که دوست داری یاد بگیری بگو.",
+"۱۵ ثانیه درباره یک سرگرمی مورد علاقه‌ات حرف بزن.",
+"یک تصمیم خوب که اخیراً گرفته‌ای تعریف کن.",
+"سه چیز که دوست داری در آینده تجربه کنی نام ببر.",
+"یک جمله برای تشویق خودت بگو.",
+"یک هدف کوچک و قابل انجام تعیین کن.",
+"یک خاطره خنده‌دار کوتاه تعریف کن.",
+"درباره یک چیز خوب در زندگی‌ات صحبت کن.",
+"یک جمله درباره چیزی که به آن افتخار می‌کنی بگو.",
+"سه ویژگی خوب خودت را نام ببر.",
+"یک آرزوی ساده برای آینده بگو."
+]
+
+},
+
+friends: {
+
+truth: [
+"کدام ویژگی دوست خوب برایت مهم‌تر است؟",
+"خاطره خنده‌دار شما با دوستان چیست؟",
+"اگر دوستت ناراحت باشد چه کار می‌کنی؟",
+"دوست داری با دوستانت چه کاری انجام بدهی؟",
+"بهترین ویژگی یک هم‌بازی چیست؟",
+"کدام بازی گروهی را بیشتر دوست داری؟",
+"اگر گروه دوستانتان یک تیم باشد اسمش چیست؟",
+"کدام خاطره جمعی را بیشتر دوست داری؟",
+"دوست داری یک سفر دوستانه به کجا بروید؟",
+"چه چیزی باعث می‌شود یک جمع صمیمی شود؟",
+"کدام ویژگی دوستت باعث خنده‌ات می‌شود؟",
+"اگر قرار باشد یک بازی جدید بسازید موضوعش چیست؟",
+"دوست داری با دوستانت چه مهارتی یاد بگیری؟",
+"بهترین قسمت دورهمی چیست؟",
+"اگر یک روز کامل با دوستانت وقت داشته باشی چه می‌کنی؟",
+"کدام بازی را می‌توانی ساعت‌ها بازی کنی؟",
+"دوست داری کدام خاطره را دوباره بسازی؟",
+"چه چیزی یک دوست را قابل اعتماد می‌کند؟",
+"اگر گروهتان یک فیلم بسازد اسمش چیست؟",
+"کدام فعالیت گروهی را بیشتر دوست داری؟",
+"بهترین شوخی دوستانه‌ای که یادت می‌آید چیست؟",
+"چه چیزی باعث می‌شود در جمع احساس راحتی کنی؟",
+"دوست داری در یک دورهمی چه غذایی باشد؟",
+"اگر یک مسابقه گروهی برگزار کنید چه مسابقه‌ای است؟",
+"کدام ویژگی باعث می‌شود با کسی سریع دوست شوی؟",
+"بهترین خاطره بازی گروهی‌ات چیست؟",
+"اگر دوستانت یک شعار داشته باشند چه می‌گویی؟",
+"دوست داری یک روز با دوستانت کجا بروی؟",
+"چه چیزی جمع دوستانه را جذاب می‌کند؟",
+"اگر همه دوستانت یک قدرت داشته باشند، چه قدرتی باشد؟"
+],
+
+dare: [
+"یک بازیکن را به عنوان کاپیتان تیم انتخاب کن.",
+"برای جمع یک شعار بساز.",
+"یک بازی کوتاه جدید پیشنهاد بده.",
+"با یکی از بازیکنان یک حرکت هماهنگ انجام بده.",
+"اسم یک تیم خیالی را اعلام کن.",
+"یک مسابقه ۲۰ ثانیه‌ای پیشنهاد بده.",
+"برای یکی از دوستانت یک لقب بامزه بساز.",
+"یک خاطره خنده‌دار تعریف کن.",
+"یک حرکت هماهنگ با بازیکن کناری انجام بده.",
+"یک قانون بامزه برای این دور پیشنهاد کن.",
+"یک تبلیغ برای گروه دوستانتان بساز.",
+"یک جمله مثبت درباره جمع بگو.",
+"۱۵ ثانیه نقش مربی تیم را بازی کن.",
+"یک دست‌زدن مخصوص گروه اختراع کن.",
+"یک اسم برای این دور بازی انتخاب کن.",
+"یک بازی بدون وسیله پیشنهاد بده.",
+"یک داستان مشترک را با یک جمله شروع کن.",
+"یکی از بازیکنان را به عنوان گزارشگر انتخاب کن.",
+"یک شعار برای تیم بساز و همه تکرار کنند.",
+"یک مسابقه تقلید صدا پیشنهاد بده.",
+"یک حرکت جشن برد گروهی انجام بده.",
+"۲۰ ثانیه درباره بهترین قسمت دورهمی صحبت کن.",
+"یک اسم خنده‌دار برای گروه انتخاب کن.",
+"یک بازی سه دقیقه‌ای پیشنهاد بده.",
+"با گروه یک عکس یادگاری بگیرید.",
+"یک جمله مثبت به بازیکن سمت راستت بگو.",
+"یک حرکت هماهنگ سه‌نفره انجام بده.",
+"یک مسابقه سرعتی با یکی از دوستان پیشنهاد بده.",
+"یک شعار کوتاه برای بازی بساز.",
+"همه با هم یک حرکت خنده‌دار انجام دهید."
+]
+
+},
+
+friendly: {
+
+truth: [
+"چه چیزی باعث می‌شود به یک نفر اعتماد کنی؟",
+"بهترین تعریف مثبتی که شنیده‌ای چیست؟",
+"چه چیزی در یک دوست برایت ارزشمند است؟",
+"چه کاری باعث می‌شود احساس خوبی داشته باشی؟",
+"کدام خاطره دوستانه را بیشتر دوست داری؟",
+"اگر بخواهی از یک دوست تشکر کنی بابت چه چیزی است؟",
+"چه چیزی یک جمع را صمیمی می‌کند؟",
+"دوست داری دیگران بیشتر چه چیزی را درباره‌ات بدانند؟",
+"چه ویژگی‌ای را در آدم‌ها تحسین می‌کنی؟",
+"چه چیزی باعث می‌شود سریع با کسی راحت شوی؟",
+"کدام نوع هدیه را بیشتر دوست داری؟",
+"بهترین راه خوشحال کردن یک دوست چیست؟",
+"چه چیزی برایت از یک گفت‌وگوی خوب مهم‌تر نیست؟",
+"کدام خاطره باعث می‌شود همیشه لبخند بزنی؟",
+"دوست داری با دوستانت چه تجربه‌ای داشته باشی؟",
+"چه چیزی باعث می‌شود یک نفر دوست خوبی باشد؟",
+"اگر یک روز مخصوص دوستان داشته باشی چه برنامه‌ای می‌چینی؟",
+"چه چیزی باعث می‌شود احساس قدردانی کنی؟",
+"دوست داری یک دوست خوب چه ویژگی‌ای داشته باشد؟",
+"کدام فعالیت آرامش‌بخش را دوست داری؟",
+"بهترین ویژگی یک جمع خوب چیست؟",
+"چه چیزی باعث می‌شود از بودن کنار دیگران لذت ببری؟",
+"کدام خاطره ساده برایت خیلی ارزشمند است؟",
+"چه چیزی باعث می‌شود احساس کنی شنیده شده‌ای؟",
+"دوست داری بیشتر چه نوع لحظه‌هایی را تجربه کنی؟",
+"چه چیزی یک گفت‌وگوی خوب را می‌سازد؟",
+"اگر بخواهی یک روز را برای خوشحال کردن دوستانت برنامه‌ریزی کنی چه می‌کنی؟",
+"چه چیزی باعث می‌شود یک دوستی ماندگار شود؟",
+"کدام ویژگی مثبت را در دیگران بیشتر دوست داری؟",
+"یک آرزوی خوب برای دوستانت چیست؟"
+],
+
+dare: [
+"به یک بازیکن یک تعریف صمیمانه بگو.",
+"از جمع بابت یک چیز خوب تشکر کن.",
+"یک جمله مثبت برای همه بگو.",
+"برای گروه یک آرزوی خوب کن.",
+"یک خاطره خوشایند تعریف کن.",
+"یک جمله تشویقی به بازیکن سمت راستت بگو.",
+"یک ویژگی خوب در یکی از دوستانت بگو.",
+"یک پیام کوتاه مثبت برای گروه بساز.",
+"۱۵ ثانیه درباره دوستی خوب صحبت کن.",
+"یک جمله بگو که همه را خوشحال کند.",
+"از یک بازیکن بابت یک ویژگی خوبش تشکر کن.",
+"یک شعار مثبت برای گروه بساز.",
+"یک خاطره خوب از یک دورهمی تعریف کن.",
+"برای همه یک آرزوی خوب بگو.",
+"یک جمله انگیزشی کوتاه بگو.",
+"به بازیکن سمت چپت یک تعریف واقعی بگو.",
+"یک جمله درباره اهمیت دوستی بگو.",
+"یک حرکت خنده‌دار برای شاد کردن جمع انجام بده.",
+"یک اسم مثبت برای گروه انتخاب کن.",
+"برای همه دست بزن و یک جمله خوب بگو.",
+"یک جمله تشکر از دوستانت بگو.",
+"یک بازی آرام و دوستانه پیشنهاد بده.",
+"یک خاطره خوشحال‌کننده تعریف کن.",
+"یک جمله امیدبخش بگو.",
+"برای یکی از بازیکنان آرزوی موفقیت کن.",
+"یک جمله درباره بهترین ویژگی دوستانت بگو.",
+"یک لبخند بزرگ به جمع نشان بده و بگو «بزن بریم!»",
+"یک جمله مثبت درباره امروز بگو.",
+"یک پیشنهاد برای دورهمی بعدی بده.",
+"برای همه یک تشویق کوتاه انجام بده."
+]
+
+}
+
+};
+
+
+function screen(id){
+  document.querySelectorAll('.screen').forEach(function(x){
     x.classList.remove('active');
   });
+
   document.getElementById(id).classList.add('active');
 }
 
-function pick(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+
+function pick(arr){
+  return arr[Math.floor(Math.random()*arr.length)];
 }
 
-function draw(type) {
-  const level = document.getElementById('level').value;
-  const text = pick(data[level][type]);
+
+function selectCategory(category){
+
+  currentCategory = category;
+
+  document.getElementById('selectedCategoryTitle').textContent =
+    categoryNames[category];
+
+  screen('typeSelect');
+}
+
+
+function draw(type){
+
+  currentType = type;
+
+  const text = pick(data[currentCategory][type]);
+
+  document.getElementById('categoryName').textContent =
+    categoryNames[currentCategory];
 
   document.getElementById('type').textContent =
     type === 'truth' ? '💗 حقیقت' : '🔥 جرئت';
@@ -113,77 +762,47 @@ function draw(type) {
 
   rounds++;
 
-  if (type === 'truth') {
+  if(type === 'truth'){
     truthCount++;
-  } else {
+  }else{
     dareCount++;
   }
 
   update();
+
   screen('play');
 }
 
-function nextRound() {
-  draw(Math.random() < 0.5 ? 'truth' : 'dare');
+
+function nextRound(){
+
+  const type = Math.random() < 0.5 ? 'truth' : 'dare';
+
+  draw(type);
 }
 
-function update() {
+
+function update(){
+
   document.getElementById('truthCount').textContent = truthCount;
   document.getElementById('dareCount').textContent = dareCount;
   document.getElementById('rounds').textContent = rounds;
 }
 
-function goHome() {
+
+function goHome(){
+
   screen('home');
 }
 
-function showRules() {
+
+function showRules(){
+
   screen('rules');
 }
 
-let currentType = '';
-let truthCount = 0;
-let dareCount = 0;
-let rounds = 0;
-const data = {
-  easy: {
-    truth: [
-      "آخرین چیزی که باعث شد از ته دل بخندی چه بود؟",
-      "اگر یک روز نامرئی شوی، اولین کاری که می‌کنی چیست؟",
-      "بیشتر از همه دوست داری چه مهارتی یاد بگیری؟"
-    ],
-    dare: [
-      "۱۰ ثانیه با صدای ربات حرف بزن!",
-      "یک حرکت رقص بامزه انجام بده.",
-      "با صدای خیلی جدی یک جمله خنده‌دار بگو."
-    ]
-  },
-  normal: {
-    truth: [
-      "یک عادت عجیب که داری چیست؟",
-      "خنده‌دارترین سوتی‌ای که یادت می‌آید چیست؟",
-      "اگر بتوانی یک ویژگی شخصیتی را تغییر بدهی، چیست؟"
-    ],
-    dare: [
-      "۳۰ ثانیه بدون خندیدن به یکی از بازیکنان نگاه کن.",
-      "یک تبلیغ خنده‌دار برای یک وسیله معمولی اجرا کن.",
-      "یک جمله را با سه لحن مختلف بگو."
-    ]
-  },
-  hard: {
-    truth: [
-      "اگر قرار بود یک راز بی‌خطر درباره خودت بگویی، چه می‌گفتی؟",
-      "کدام تصمیم گذشته‌ات را دوست داشتی جور دیگری بگیری؟",
-      "چه چیزی خیلی راحت می‌تواند تو را خوشحال کند؟"
-    ],
-    dare: [
-      "یک داستان ۲۰ ثانیه‌ای بداهه بساز.",
-      "با لحن گوینده اخبار، یک اتفاق معمولی را گزارش کن.",
-      "۳۰ ثانیه فقط با اشاره منظورت را به بقیه بفهمان."
-    ]
-  }
-}; 
 </script>
+
 </body>
 </html>
 
