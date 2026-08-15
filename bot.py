@@ -33,7 +33,14 @@ def webhook():
             )
 
     return "OK"
+    
+WEBHOOK_URL = "https://jorat-haghighat-game.onrender.com/webhook"
 
+requests.post(
+    f"{API}/setWebhook",
+    json={"url": WEBHOOK_URL},
+    timeout=10
+)
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
