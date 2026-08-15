@@ -76,46 +76,114 @@ button{font:inherit;border:0;color:#fff;cursor:pointer}.choice{min-height:115px;
 
 <div class="footer">برای جمع دوستانه • بدون ثبت اطلاعات شخصی</div>
 </div>
-
 <script>
-const data={
-easy:{
-truth:["آخرین چیزی که باعث شد از ته دل بخندی چه بود؟","اگر یک روز نامرئی شوی، اولین کاری که می‌کنی چیست؟","بیشتر از همه دوست داری چه مهارتی یاد بگیری؟","کدام فیلم یا سریال را می‌توانی چند بار ببینی؟","اگر بتوانی به یک شهر سفر کنی، کجا می‌روی؟"],
-dare:["۱۰ ثانیه با صدای ربات حرف بزن!","یک حرکت رقص بامزه انجام بده.","با صدای خیلی جدی یک جمله خنده‌دار بگو.","۵ بار پشت سر هم دست بزن و یک ژست بگیر.","یک حیوان را فقط با حرکت تقلید کن تا بقیه حدس بزنند."]
-},
-normal:{
-truth:["یک عادت عجیب که داری چیست؟","تا حالا شده از کسی برداشت اشتباهی داشته باشی؟","اگر بتوانی یک ویژگی شخصیتی را در خودت تغییر بدهی، چیست؟","خنده‌دارترین سوتی‌ای که یادت می‌آید چیست؟","آخرین بار بابت چه چیزی خیلی هیجان‌زده شدی؟"],
-dare:["۳۰ ثانیه بدون خندیدن به یکی از بازیکنان نگاه کن.","یک تبلیغ خنده‌دار برای یک وسیله معمولی اجرا کن.","یک جمله را با سه لحن مختلف بگو.","تا دور بعد با یک لقب بامزه خودت را معرفی کن.","یک آهنگ را بدون گفتن کلماتش با «لالالا» اجرا کن."]
-},
-hard:{
-truth:["اگر قرار بود یک راز بی‌خطر درباره خودت بگویی، چه می‌گفتی؟","کدام تصمیم گذشته‌ات را دوست داشتی جور دیگری بگیری؟","چه چیزی خیلی راحت می‌تواند تو را خوشحال کند؟","در جمع معمولاً چه نقشی داری؟","کدام تعریف از خودت را بیشتر دوست داری بشنوی؟"],
-dare:["یک داستان ۲۰ ثانیه‌ای کاملاً بداهه بساز که سه کلمه انتخابی بقیه را داشته باشد.","با لحن گوینده اخبار، اتفاقی کاملاً معمولی را گزارش کن.","۳۰ ثانیه فقط با اشاره منظورت را به بقیه بفهمان.","یک شخصیت خیالی بساز و ۲۰ ثانیه نقش او را بازی کن.","برای نفر سمت راستت یک شعار تبلیغاتی خنده‌دار بساز."]
-]};
-let currentType="",truthCount=0,dareCount=0,rounds=0;
+document.querySelector('.truth').addEventListener('click', function () {
+  draw('truth');
+});
 
-function screen(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active")}
-function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
-function draw(type){
- currentType=type;
- const level=document.getElementById("level").value;
- const text=pick(data[level][type]);
- document.getElementById("type").textContent=type==="truth"?"💗 حقیقت":"🔥 جرئت";
- document.getElementById("qtext").textContent=text;
- rounds++;
- if(type==="truth")truthCount++;else dareCount++;
- update();
- screen("play");
+document.querySelector('.dare').addEventListener('click', function () {
+  draw('dare');
+});
+
+document.querySelector('.secondary').addEventListener('click', function () {
+  showRules();
+});
+
+document.querySelector('.next').addEventListener('click', function () {
+  nextRound();
+});function screen(id) {
+  document.querySelectorAll('.screen').forEach(function(x) {
+    x.classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
 }
-function nextRound(){
- draw(Math.random()<.5?"truth":"dare");
+
+function pick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
 }
-function update(){
- document.getElementById("truthCount").textContent=truthCount;
- document.getElementById("dareCount").textContent=dareCount;
- document.getElementById("rounds").textContent=rounds;
+
+function draw(type) {
+  const level = document.getElementById('level').value;
+  const text = pick(data[level][type]);
+
+  document.getElementById('type').textContent =
+    type === 'truth' ? '💗 حقیقت' : '🔥 جرئت';
+
+  document.getElementById('qtext').textContent = text;
+
+  rounds++;
+
+  if (type === 'truth') {
+    truthCount++;
+  } else {
+    dareCount++;
+  }
+
+  update();
+  screen('play');
 }
-function goHome(){screen("home")}
-function showRules(){screen("rules")}
+
+function nextRound() {
+  draw(Math.random() < 0.5 ? 'truth' : 'dare');
+}
+
+function update() {
+  document.getElementById('truthCount').textContent = truthCount;
+  document.getElementById('dareCount').textContent = dareCount;
+  document.getElementById('rounds').textContent = rounds;
+}
+
+function goHome() {
+  screen('home');
+}
+
+function showRules() {
+  screen('rules');
+}
+
+let currentType = '';
+let truthCount = 0;
+let dareCount = 0;
+let rounds = 0;
+const data = {
+  easy: {
+    truth: [
+      "آخرین چیزی که باعث شد از ته دل بخندی چه بود؟",
+      "اگر یک روز نامرئی شوی، اولین کاری که می‌کنی چیست؟",
+      "بیشتر از همه دوست داری چه مهارتی یاد بگیری؟"
+    ],
+    dare: [
+      "۱۰ ثانیه با صدای ربات حرف بزن!",
+      "یک حرکت رقص بامزه انجام بده.",
+      "با صدای خیلی جدی یک جمله خنده‌دار بگو."
+    ]
+  },
+  normal: {
+    truth: [
+      "یک عادت عجیب که داری چیست؟",
+      "خنده‌دارترین سوتی‌ای که یادت می‌آید چیست؟",
+      "اگر بتوانی یک ویژگی شخصیتی را تغییر بدهی، چیست؟"
+    ],
+    dare: [
+      "۳۰ ثانیه بدون خندیدن به یکی از بازیکنان نگاه کن.",
+      "یک تبلیغ خنده‌دار برای یک وسیله معمولی اجرا کن.",
+      "یک جمله را با سه لحن مختلف بگو."
+    ]
+  },
+  hard: {
+    truth: [
+      "اگر قرار بود یک راز بی‌خطر درباره خودت بگویی، چه می‌گفتی؟",
+      "کدام تصمیم گذشته‌ات را دوست داشتی جور دیگری بگیری؟",
+      "چه چیزی خیلی راحت می‌تواند تو را خوشحال کند؟"
+    ],
+    dare: [
+      "یک داستان ۲۰ ثانیه‌ای بداهه بساز.",
+      "با لحن گوینده اخبار، یک اتفاق معمولی را گزارش کن.",
+      "۳۰ ثانیه فقط با اشاره منظورت را به بقیه بفهمان."
+    ]
+  }
+}; 
 </script>
 </body>
 </html>
+
