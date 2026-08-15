@@ -23,14 +23,24 @@ def webhook():
         chat_id = chat.get("id")
 
         if chat_id:
-            requests.post(
-                f"{API}/sendMessage",
-                json={
-                    "chat_id": chat_id,
-                    "text": "🎮 به بازی جرئت یا حقیقت خوش آمدی!\n\nبرای شروع بازی روی دکمه بازی بزن."
-                },
-                timeout=10
-            )
+requests.post(
+    f"{API}/sendMessage",
+    json={
+        "chat_id": chat_id,
+        "text": "🎮 به بازی جرئت یا حقیقت خوش آمدی!\n\nبرای شروع بازی روی دکمه زیر بزن.",
+        "reply_markup": {
+            "inline_keyboard": [[
+                {
+                    "text": "🎮 شروع بازی",
+                    "web_app": {
+                        "url": "https://saiedehsabbaghi59-ops.github.io/jorat-haghighat-game/"
+                    }
+                }
+            ]]
+        }
+    },
+    timeout=10
+)            
 
     return "OK"
     
