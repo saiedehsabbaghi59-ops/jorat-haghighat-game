@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#7c3aed">
+<title>جرئت یا حقیقت</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;min-height:100vh;font-family:Tahoma,Arial,sans-serif;color:#fff;background:radial-gradient(circle at 20% 10%,#4c1d95 0,#17102e 45%,#090711 100%)}
+.app{max-width:520px;margin:auto;min-height:100vh;padding:18px;display:flex;flex-direction:column}
+.top{display:flex;justify-content:space-between;align-items:center}.logo{font-weight:900;font-size:22px}.badge{padding:8px 12px;border-radius:99px;background:#ffffff14;border:1px solid #ffffff1c;font-size:12px}
+.card{margin-top:18px;padding:20px;border-radius:26px;background:#ffffff0e;border:1px solid #ffffff18;box-shadow:0 20px 60px #0006;backdrop-filter:blur(10px)}
+h1{font-size:31px;margin:4px 0 10px}.desc{color:#d9d0eb;line-height:1.9;font-size:14px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+button{font:inherit;border:0;color:#fff;cursor:pointer}.choice{min-height:115px;border-radius:22px;font-size:22px;font-weight:900;box-shadow:0 12px 30px #0003}.truth{background:linear-gradient(145deg,#ec4899,#be185d)}.dare{background:linear-gradient(145deg,#8b5cf6,#4f46e5)}
+.secondary{width:100%;margin-top:12px;padding:13px;border-radius:15px;background:#ffffff12;border:1px solid #ffffff18}
+.screen{display:none}.screen.active{display:block}.question{min-height:220px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:18px}
+.type{font-size:14px;opacity:.8;margin-bottom:15px}.qtext{font-size:24px;font-weight:800;line-height:1.8}
+.next{margin-top:20px;width:100%;padding:15px;border-radius:16px;background:linear-gradient(135deg,#7c3aed,#a855f7);font-weight:900;font-size:17px}
+.stats{display:flex;gap:8px;margin-top:14px}.stat{flex:1;text-align:center;padding:10px;border-radius:14px;background:#0002}.num{font-size:20px;font-weight:900}.label{font-size:10px;color:#bfb5d6}
+.settings{margin-top:14px}.settings label{display:block;color:#cfc6e3;font-size:13px;margin:12px 0 6px}.settings select{width:100%;padding:12px;border-radius:13px;background:#20163b;color:#fff;border:1px solid #ffffff20}
+.footer{margin-top:auto;text-align:center;color:#8f86a8;font-size:11px;padding:14px}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="top"><div class="logo">🎲 جرئت یا حقیقت</div><div class="badge">گُرَت حقیقت</div></div>
+
+<section id="home" class="screen active">
+<div class="card">
+<h1>حاضری؟ 😈</h1>
+<div class="desc">یک گزینه انتخاب کن و ببین چه چالشی نصیبت می‌شود! بازی برای دورهمی دوستان طراحی شده و می‌توانی درجه سختی را تغییر بدهی.</div>
+<div class="row">
+<button class="choice truth" onclick="draw('truth')">💗<br>حقیقت</button>
+<button class="choice dare" onclick="draw('dare')">🔥<br>جرئت</button>
+</div>
+<div class="settings">
+<label>سطح بازی</label>
+<select id="level">
+<option value="easy">آسان 😊</option>
+<option value="normal" selected>معمولی 😈</option>
+<option value="hard">سخت 🔥</option>
+</select>
+</div>
+<button class="secondary" onclick="showRules()">📖 قوانین بازی</button>
+</div>
+</section>
+
+<section id="play" class="screen">
+<div class="card question">
+<div class="type" id="type"></div>
+<div class="qtext" id="qtext"></div>
+<button class="next" onclick="nextRound()">بعدی 🎲</button>
+</div>
+<div class="stats">
+<div class="stat"><div class="num" id="truthCount">0</div><div class="label">حقیقت</div></div>
+<div class="stat"><div class="num" id="dareCount">0</div><div class="label">جرئت</div></div>
+<div class="stat"><div class="num" id="rounds">0</div><div class="label">دور</div></div>
+</div>
+<button class="secondary" onclick="goHome()">🏠 منوی اصلی</button>
+</section>
+
+<section id="rules" class="screen">
+<div class="card">
+<h1>📖 قوانین</h1>
+<div class="desc">
+۱. بازیکن «حقیقت» یا «جرئت» را انتخاب می‌کند.<br>
+۲. کارت به‌صورت تصادفی نمایش داده می‌شود.<br>
+۳. اگر چالش مناسب جمع شما نیست، می‌توانید «بعدی» را بزنید.<br>
+۴. هیچ‌کس مجبور به انجام کاری که ناراحت‌کننده یا خطرناک است نیست.
+</div>
+<button class="next" onclick="goHome()">متوجه شدم 👍</button>
+</div>
+</section>
+
+<div class="footer">برای جمع دوستانه • بدون ثبت اطلاعات شخصی</div>
+</div>
+
+<script>
+const data={
+easy:{
+truth:["آخرین چیزی که باعث شد از ته دل بخندی چه بود؟","اگر یک روز نامرئی شوی، اولین کاری که می‌کنی چیست؟","بیشتر از همه دوست داری چه مهارتی یاد بگیری؟","کدام فیلم یا سریال را می‌توانی چند بار ببینی؟","اگر بتوانی به یک شهر سفر کنی، کجا می‌روی؟"],
+dare:["۱۰ ثانیه با صدای ربات حرف بزن!","یک حرکت رقص بامزه انجام بده.","با صدای خیلی جدی یک جمله خنده‌دار بگو.","۵ بار پشت سر هم دست بزن و یک ژست بگیر.","یک حیوان را فقط با حرکت تقلید کن تا بقیه حدس بزنند."]
+},
+normal:{
+truth:["یک عادت عجیب که داری چیست؟","تا حالا شده از کسی برداشت اشتباهی داشته باشی؟","اگر بتوانی یک ویژگی شخصیتی را در خودت تغییر بدهی، چیست؟","خنده‌دارترین سوتی‌ای که یادت می‌آید چیست؟","آخرین بار بابت چه چیزی خیلی هیجان‌زده شدی؟"],
+dare:["۳۰ ثانیه بدون خندیدن به یکی از بازیکنان نگاه کن.","یک تبلیغ خنده‌دار برای یک وسیله معمولی اجرا کن.","یک جمله را با سه لحن مختلف بگو.","تا دور بعد با یک لقب بامزه خودت را معرفی کن.","یک آهنگ را بدون گفتن کلماتش با «لالالا» اجرا کن."]
+},
+hard:{
+truth:["اگر قرار بود یک راز بی‌خطر درباره خودت بگویی، چه می‌گفتی؟","کدام تصمیم گذشته‌ات را دوست داشتی جور دیگری بگیری؟","چه چیزی خیلی راحت می‌تواند تو را خوشحال کند؟","در جمع معمولاً چه نقشی داری؟","کدام تعریف از خودت را بیشتر دوست داری بشنوی؟"],
+dare:["یک داستان ۲۰ ثانیه‌ای کاملاً بداهه بساز که سه کلمه انتخابی بقیه را داشته باشد.","با لحن گوینده اخبار، اتفاقی کاملاً معمولی را گزارش کن.","۳۰ ثانیه فقط با اشاره منظورت را به بقیه بفهمان.","یک شخصیت خیالی بساز و ۲۰ ثانیه نقش او را بازی کن.","برای نفر سمت راستت یک شعار تبلیغاتی خنده‌دار بساز."]
+]};
+let currentType="",truthCount=0,dareCount=0,rounds=0;
+
+function screen(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active")}
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function draw(type){
+ currentType=type;
+ const level=document.getElementById("level").value;
+ const text=pick(data[level][type]);
+ document.getElementById("type").textContent=type==="truth"?"💗 حقیقت":"🔥 جرئت";
+ document.getElementById("qtext").textContent=text;
+ rounds++;
+ if(type==="truth")truthCount++;else dareCount++;
+ update();
+ screen("play");
+}
+function nextRound(){
+ draw(Math.random()<.5?"truth":"dare");
+}
+function update(){
+ document.getElementById("truthCount").textContent=truthCount;
+ document.getElementById("dareCount").textContent=dareCount;
+ document.getElementById("rounds").textContent=rounds;
+}
+function goHome(){screen("home")}
+function showRules(){screen("rules")}
+</script>
+</body>
+</html>
